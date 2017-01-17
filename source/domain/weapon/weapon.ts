@@ -13,12 +13,20 @@ export abstract class Weapon implements IWeapon {
 	damage: number;
 
 	fire(event: IAttackEvent): void {
+		const shieldHitResult = this.attackShield(event);
+
+		if (shieldHitResult.damage) {
+			this.attackStructure(shieldHitResult);
+		}
+	}
+
+	attackShield(event: IAttackEvent): IAttackEvent {
 		let shieldHitEvent: ModifiedAttackEvent = <ModifiedAttackEvent>event.target.shieldHit(event);
 		const remainingDamage = shieldHitEvent.damage - shieldHitEvent.absorbedDamage;
-		
-		if (remainingDamage) {
-			const structureHit = new AttackEvent(event.target, this.weaponType, remainingDamage);
-			event.target.structureHit(structureHit);
-		}
+		return new AttackEvent(event.target, this.weaponType, remainingDamage);
+	}
+
+	attackStructure(event: IAttackEvent): void {
+		event.target.structureHit(event);
 	}
 }
