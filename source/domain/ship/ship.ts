@@ -1,11 +1,18 @@
 import { Observable, Subject } from 'rxjs';
 
 import { IEvent, IAttackEvent } from '../interfaces';
+import { ModifiedAttackEvent } from '../action/modifiedAttackEvent';
 import { DestroyedEvent } from '../action/destroyedEvent';
 
 export interface IShip {
+	// attack
 	attack(target: IShip): void;
-	defend(attack: IAttackEvent): void;
+
+	// defense
+	shieldHit(attack: IAttackEvent): IAttackEvent;
+	structureHit(attack: IAttackEvent): void;
+
+	// extras
 	recharge(): void;
 
 	events$: Observable<IEvent>;
@@ -14,34 +21,35 @@ export interface IShip {
 export abstract class Ship {
 	hull: number;
 	shields: number;
-
 	_events: Subject<IEvent> = new Subject<IEvent>();
 
 	get events$(): Observable<IEvent> { 
-		return this._events.asObservable(); 
+		return this._events.asObservable();
 	}
 
 	attack(target: IShip): void {
 		
 	}
 
-	defend(attack: IAttackEvent): void {
-		let hullDamage: number = 0;
+	shieldHit(attack: IAttackEvent): IAttackEvent {
 		if (this.shields) {
-			if (attack.weapon.damage > this.shields) {
-				hullDamage = attack.weapon.damage - this.shields;
-				this.shields = 0;
+			let absorbed: number;
+			if (this.shields >= attack.weapon.damage) {
+				absorbed = attack.weapon.damage;
 			} else {
-				this.shields -= attack.weapon.damage;
+				absorbed = this.shields;
 			}
-		} else {
-			hullDamage = attack.weapon.damage;
+			this.shields = this.shields - absorbed;
+			return new ModifiedAttackEvent(attack.target, attack.weapon, absorbed);
 		}
+		return attack;
+	}
 
-		if (hullDamage >= this.hull) {
-			this._events.next(new DestroyedEvent(this));
+	structureHit(attack: IAttackEvent): void {
+		if (this.hull > attack.weapon.damage) {
+			this.hull = this.hull - attack.weapon.damage;
 		} else {
-			this.hull -= hullDamage;
+			this._events.next(new DestroyedEvent(this));			
 		}
 	}
 	

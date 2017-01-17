@@ -20,3 +20,26 @@ Fighter screen?
 Point defense beams
 EMP?
 Shields?
+
+
+
+// defense logic
+defend(attack: IAttackEvent): void {
+	let hullDamage: number = 0;
+	if (this.shields) {
+		if (attack.weapon.damage > this.shields) {
+			hullDamage = attack.weapon.damage - this.shields;
+			this.shields = 0;
+		} else {
+			this.shields -= attack.weapon.damage;
+		}
+	} else {
+		hullDamage = attack.weapon.damage;
+	}
+
+	if (hullDamage >= this.hull) {
+		this._events.next(new DestroyedEvent(this));
+	} else {
+		this.hull -= hullDamage;
+	}
+}
