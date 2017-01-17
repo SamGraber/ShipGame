@@ -6,3 +6,4 @@
 /buildScripts/**/*.d.ts
 /source/**/*.js
 /source/**/*.d.ts
+/temp/
