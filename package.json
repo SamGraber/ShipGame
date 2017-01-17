@@ -1,0 +1,24 @@
+{
+  "name": "space-combat",
+  "version": "1.0.0",
+  "description": "Space combat game",
+  "scripts": {
+    "test": "mocha --reporter progress --require ts-node/register \"source/**/*.spec.ts\"",
+    "test.watch": "npm run test -- --watch"
+  },
+  "author": "Sam Graber",
+  "license": "MIT",
+  "dependencies": {
+    "rxjs": "~5.0.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^3.4.34",
+    "@types/mocha": "^2.2.32",
+    "@types/typescript": "^0.4.29",
+    "chai": "3.5.0",
+    "mocha": "3.1.2",
+    "npm-run-all": "3.1.1",
+    "ts-node": "^1.7.0",
+    "typescript": "^2.0.9"
+  }
+}
