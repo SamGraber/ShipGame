@@ -4,6 +4,8 @@
   "description": "Space combat game",
   "scripts": {
     "clean": "ts-node buildScripts/clean",
+    "compile": "tsc --outDir temp",
+    "compile.watch": "npm run compile -- --watch",
     "test": "mocha --reporter progress --require ts-node/register \"source/**/*.spec.ts\"",
     "test.watch": "npm run test -- --watch"
   },
