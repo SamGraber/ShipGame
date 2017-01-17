@@ -28,6 +28,9 @@ Pipe through shieldHit
 Subtract absorbed from 'damage'
 Apply to structureHit
 
+The main reason for keeping the absorbed damage separate until the 'attack manager' handles it is in case the attack has modifiers for attacking shields vs structure
+For example, for a shield overloading weapon, the 'damage' might be 2, but it applies 4 damage to shields. The shields absorb 2, so the 'manager' then determines that only 1 of the base damage was absorbed, leaving 1 to hit the structure.
+
 
 // defense logic
 defend(attack: IAttackEvent): void {
