@@ -1,6 +1,7 @@
 import { Observable, Subject } from 'rxjs';
 
 import { IEvent, IAttackEvent } from '../interfaces';
+import { DestroyedEvent } from '../action/destroyedEvent';
 
 export interface IShip {
 	attack(target: IShip): void;
@@ -38,7 +39,7 @@ export abstract class Ship {
 		}
 
 		if (hullDamage >= this.hull) {
-			// emit destroy event
+			this._events.next(new DestroyedEvent(this));
 		} else {
 			this.hull -= hullDamage;
 		}
