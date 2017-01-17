@@ -1,0 +1,22 @@
+Design ideas:
+A ship game loosly based off the old space combat games I made up
+
+It would be cool to have a map of square tiles, maybe roughly 10x10 or 15x15
+
+A variety of ship classes should be available, with different abilities
+
+The game should use domain driven design to decouple the 'domain' from an implementation, and make it easy to build different UI's, so I could potentially start with just a simple node console UI and move on from there.
+
+Ships should have a series of 'action points' at which they get an opportunity to react to the enemy action? The tricky part is that different abilities will have a wide variety of points at which they act
+
+Beams and torpedos will be two separate weapon types.
+
+Shields?
+
+A list of some abilities:
+Boarding
+Anti-fighter barrage
+Fighter screen?
+Point defense beams
+EMP?
+Shields?
