@@ -12,7 +12,7 @@ export class Cruiser extends Ship {
 	shields = 1;
 
 	attack(target: IShip): void {
-		this._events.next(new AttackEvent(target, this.weapon));
+		this._events.next(new AttackEvent(target, this.weapon.weaponType, this.weapon.damage));
 	}
 
 	recharge(): void {

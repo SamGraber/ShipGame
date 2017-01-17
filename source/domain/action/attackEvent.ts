@@ -1,11 +1,13 @@
-import { IEvent, IShip, IWeapon } from '../interfaces';
+import { IEvent, IShip, WeaponType } from '../interfaces';
 
 export interface IAttackEvent extends IEvent {
 	target: IShip;
-	weapon: IWeapon;
+	weaponType: WeaponType;
+	damage: number;
 }
 
 export class AttackEvent implements IAttackEvent {
 	constructor(public target: IShip
-			, public weapon: IWeapon) {}
+			, public weaponType: WeaponType
+			, public damage: number) {}
 }

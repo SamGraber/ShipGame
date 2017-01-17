@@ -22,6 +22,12 @@ EMP?
 Shields?
 
 
+Resolving an attack:
+Attack event
+Pipe through shieldHit
+Subtract absorbed from 'damage'
+Apply to structureHit
+
 
 // defense logic
 defend(attack: IAttackEvent): void {

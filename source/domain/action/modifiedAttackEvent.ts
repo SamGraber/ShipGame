@@ -1,10 +1,9 @@
-import { IEvent, IShip, IWeapon } from '../interfaces';
+import { IEvent, IShip, WeaponType } from '../interfaces';
 import { AttackEvent } from './attackEvent';
 
 export class ModifiedAttackEvent extends AttackEvent {
-	constructor(public target: IShip
-			, public weapon: IWeapon
+	constructor(public attack: AttackEvent
 			, public absorbedDamage: number) {
-		super(target, weapon);
+		super(attack.target, attack.weaponType, attack.damage);
 	}
 }

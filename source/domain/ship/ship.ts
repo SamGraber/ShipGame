@@ -34,20 +34,20 @@ export abstract class Ship {
 	shieldHit(attack: IAttackEvent): IAttackEvent {
 		if (this.shields) {
 			let absorbed: number;
-			if (this.shields >= attack.weapon.damage) {
-				absorbed = attack.weapon.damage;
+			if (this.shields >= attack.damage) {
+				absorbed = attack.damage;
 			} else {
 				absorbed = this.shields;
 			}
 			this.shields = this.shields - absorbed;
-			return new ModifiedAttackEvent(attack.target, attack.weapon, absorbed);
+			return new ModifiedAttackEvent(attack, absorbed);
 		}
 		return attack;
 	}
 
 	structureHit(attack: IAttackEvent): void {
-		if (this.hull > attack.weapon.damage) {
-			this.hull = this.hull - attack.weapon.damage;
+		if (this.hull > attack.damage) {
+			this.hull = this.hull - attack.damage;
 		} else {
 			this._events.next(new DestroyedEvent(this));			
 		}
