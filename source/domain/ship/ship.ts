@@ -15,12 +15,18 @@ export interface IShip {
 	// extras
 	recharge(): void;
 
+	hull: number;
+	shields: number;
+	speed: number;
+
 	events$: Observable<IEvent>;
 }
 
 export abstract class Ship {
 	hull: number;
 	shields: number;
+	speed: number;
+	
 	_events: Subject<IEvent> = new Subject<IEvent>();
 
 	get events$(): Observable<IEvent> { 

@@ -10,6 +10,7 @@ export class Cruiser extends Ship {
 	};
 	hull = 4;
 	shields = 1;
+	speed = 1;
 
 	attack(target: IShip): void {
 		this._events.next(new AttackEvent(target, this.weapon.weaponType, this.weapon.damage));
